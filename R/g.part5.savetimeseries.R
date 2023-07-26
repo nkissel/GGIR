@@ -24,7 +24,7 @@ g.part5.savetimeseries = function(ts, LEVELS, desiredtz, rawlevels_fname,
   mdat = mdat[,-which(names(mdat) == "date_time")]
   # Add invalid day indicator
   mdat$invalid_wakinghours = mdat$invalid_sleepperiod =  mdat$invalid_fullwindow = 100
-  wakeup = which(diff(c(mdat$SleepPeriodTime,0)) == -1) + 1 # first epoch of each day
+  wakeup = c(0, which(diff(c(mdat$SleepPeriodTime, 0)) == -1) + 1)  # HERE I ADDED 0 TO THE FRONT
   if (length(wakeup) > 1) {
     for (di in 1:(length(wakeup) - 1)) {
       dayindices = wakeup[di]:(wakeup[di + 1] - 1)
